@@ -10,6 +10,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float maxLifetime = 5f;
     private float lifetime;
+
+    [SerializeField]
+    private int damage = 1;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,16 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
+        if (enemyHit != null)
+        {
+            enemyHit.TakeDamage(damage);
+        }
+        else
+        {
+            Debug.Log("Cannot find enemy script");
+        }
+
         //  Deactivate object and return it to the pool
         ProjectilePool.Instance.ReturnToPool(this);
     }
