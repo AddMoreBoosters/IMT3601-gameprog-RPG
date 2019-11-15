@@ -6,18 +6,26 @@ public class PlayerShooting : MonoBehaviour
 {
     private Transform parentTransform;
 
+    [SerializeField]
+    private float fireRateRPM = 60f;
+    private float cooldown;
+
     // Start is called before the first frame update
     void Start()
     {
         parentTransform = GetComponent<Transform>();
+        cooldown = 60f / fireRateRPM;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (cooldown < (60f / fireRateRPM))
+            cooldown += Time.deltaTime;
 
+        if (Input.GetMouseButton(0) && cooldown >= (60f / fireRateRPM))
+        {
+            cooldown = 0f;
             Vector2 mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = mousePosition - new Vector2(parentTransform.position.x, parentTransform.position.y);
             direction.Normalize();
