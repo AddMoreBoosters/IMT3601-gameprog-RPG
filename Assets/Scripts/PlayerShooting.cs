@@ -26,18 +26,20 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetMouseButton(0) && cooldown >= (60f / fireRateRPM))
         {
             cooldown = 0f;
-            Vector2 mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = mousePosition - new Vector2(parentTransform.position.x, parentTransform.position.y);
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.y = 0f;
+            Vector3 direction = mousePosition - parentTransform.position;
+            direction.y = 0f;
             direction.Normalize();
 
             var instantiatedProjectile = ProjectilePool.Instance.Get();
-            instantiatedProjectile.transform.position = parentTransform.position +(Vector3)direction;
-            float zAngle = Mathf.Rad2Deg * Mathf.Acos(Vector2.Dot(new Vector2(1, 0), direction));
-            if (direction.y < 0f)
+            instantiatedProjectile.transform.position = parentTransform.position + direction;
+            float yAngle = Mathf.Rad2Deg * Mathf.Acos(Vector3.Dot(new Vector3(1, 0, 0), direction));
+            if (direction.z >= 0f)
             {
-                zAngle *= -1;
+                yAngle *= -1;
             }
-            instantiatedProjectile.transform.eulerAngles = new Vector3(0f, 0f, zAngle);
+            instantiatedProjectile.transform.eulerAngles = new Vector3(0f, yAngle, 0f);
             instantiatedProjectile.gameObject.SetActive(true);
         }
     }

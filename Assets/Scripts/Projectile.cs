@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
         if (enemyHit != null)

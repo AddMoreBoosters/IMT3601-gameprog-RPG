@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (vertical != 0f)
         {
-            gameObject.transform.position += new Vector3(0f, vertical * Time.deltaTime * speed, 0f);
+            gameObject.transform.position += new Vector3(0f, 0f, vertical * Time.deltaTime * speed);
         }
     }
 }
