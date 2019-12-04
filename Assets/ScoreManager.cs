@@ -28,4 +28,9 @@ public class ScoreManager : MonoBehaviour
         score += amount;
         Debug.Log(score);
     }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDied -= AddScore;
+    }
 }
