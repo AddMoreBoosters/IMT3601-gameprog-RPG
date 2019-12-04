@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2614478186857972068}
   - component: {fileID: 9096265486045039752}
   - component: {fileID: 6862024995839924528}
+  - component: {fileID: 6389544349270775898}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -95,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsValue: 1
-  health: 1
+  damage: 1
 --- !u!65 &2614478186857972068
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,3 +148,16 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6389544349270775898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026355987530704848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e02f9fe143aa8498fa079a4c85de0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2

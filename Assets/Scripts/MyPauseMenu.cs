@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MyPauseMenu : MonoBehaviour
 {
-    public static bool gameIsPaused = false;
+    public static bool gameIsPaused;
     public GameObject pauseMenuUI;
+
+    private void Awake()
+    {
+        gameIsPaused = false;
+    }
 
     // Update is called once per frame
     void Update()

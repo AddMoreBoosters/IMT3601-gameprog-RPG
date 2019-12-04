@@ -9,47 +9,37 @@ public class Projectile : MonoBehaviour
     
     [SerializeField]
     private float maxLifetime = 5f;
-    private float lifetime;
+    private float elapsedLifetime;
 
     [SerializeField]
     private int damage = 1;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void OnEnable()
     {
-        lifetime = 0f;
+        elapsedLifetime = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(1f, 0f, 0f) * speed * Time.deltaTime);
-        lifetime += Time.deltaTime;
-        if (lifetime > maxLifetime)
+        elapsedLifetime += Time.deltaTime;
+        if (elapsedLifetime > maxLifetime)
         {
-            //  Deactivate object and return it to the pool
+            //  Deactivate projectile and return it to the pool
             ProjectilePool.Instance.ReturnToPool(this);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
-        if (enemyHit != null)
+        Health destructibleTarget = collision.gameObject.GetComponent<Health>();
+        if (destructibleTarget != null)
         {
-            enemyHit.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.Log("Cannot find enemy script");
+            destructibleTarget.ModifyHealth(-damage);
         }
 
-        //  Deactivate object and return it to the pool
+        //  Deactivate projectile and return it to the pool
         ProjectilePool.Instance.ReturnToPool(this);
     }
 }

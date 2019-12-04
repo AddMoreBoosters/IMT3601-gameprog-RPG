@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
     private void AddScore(int amount)
     {
         score += amount;
-        Debug.Log(score);
+        Debug.Log("Score: " + score);
     }
 
     private void OnDestroy()

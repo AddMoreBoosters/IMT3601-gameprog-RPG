@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int pointsValue = 1;
     [SerializeField]
-    private int health = 1;
+    private int damage = 1;
 
     public static event System.Action<int> OnEnemyDied = delegate { };
 
@@ -26,13 +26,12 @@ public class Enemy : MonoBehaviour
         agent.destination = FindObjectOfType<PlayerMovement>().transform.position;
     }
 
-    public void TakeDamage (int damage)
+    private void OnCollisionEnter(Collision collision)
     {
-        health -= damage;
-
-        if (health <= 0)
+        Health destructibleTarget = collision.gameObject.GetComponent<Health>();
+        if (destructibleTarget != null && destructibleTarget.gameObject.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            destructibleTarget.ModifyHealth(-damage);
         }
     }
 

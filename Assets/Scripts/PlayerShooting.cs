@@ -23,7 +23,7 @@ public class PlayerShooting : MonoBehaviour
         if (cooldown < (60f / fireRateRPM))
             cooldown += Time.deltaTime;
 
-        if (Input.GetMouseButton(0) && cooldown >= (60f / fireRateRPM))
+        if (Input.GetMouseButton(0) && cooldown >= (60f / fireRateRPM) && !MyPauseMenu.gameIsPaused)
         {
             cooldown = 0f;
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
