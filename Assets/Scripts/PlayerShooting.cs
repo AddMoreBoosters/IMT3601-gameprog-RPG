@@ -26,11 +26,29 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetMouseButton(0) && cooldown >= (60f / fireRateRPM) && !MyPauseMenu.gameIsPaused)
         {
             cooldown = 0f;
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.y = 0f;
-            Vector3 direction = mousePosition - parentTransform.position;
-            direction.y = 0f;
-            direction.Normalize();
+
+            //  Only works when camera projection is Orthographic, doesn't work in Perspective
+            //
+            //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //mousePosition.y = 0f;
+            //Vector3 direction = mousePosition - parentTransform.position;
+            //direction.y = 0f;
+            //direction.Normalize();
+            //Debug.Log(direction);
+
+            Vector3 mousePosition = new Vector3(0f, 0f, 0f);
+            Vector3 direction = new Vector3(0f, 0f, 0f);
+
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                mousePosition = hit.point;
+                mousePosition.y = 0f;
+                direction = mousePosition - parentTransform.position;
+                direction.y = 0f;
+                direction.Normalize();
+            }
 
             var instantiatedProjectile = ProjectilePool.Instance.Get();
             instantiatedProjectile.transform.position = parentTransform.position + direction;

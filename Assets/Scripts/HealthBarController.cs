@@ -11,14 +11,14 @@ public class HealthBarController : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Controller registering for events.");
+        //Debug.Log("Controller registering for events.");
         Health.OnHealthAdded += AddHealthBar;
         Health.OnHealthRemoved += RemoveHealthBar;
     }
 
     private void OnDestroy()
     {
-        Debug.Log("Controller unregistering for events.");
+        //Debug.Log("Controller unregistering for events.");
         Health.OnHealthAdded -= AddHealthBar;
         Health.OnHealthRemoved -= RemoveHealthBar;
     }
@@ -30,7 +30,7 @@ public class HealthBarController : MonoBehaviour
             var healthBar = Instantiate(healthBarPrefab, transform);
             healthbars.Add(health, healthBar);
             healthBar.SetHealth(health);
-            Debug.Log("Added health bar");
+            //Debug.Log("Added health bar");
         }
     }
 
@@ -40,7 +40,7 @@ public class HealthBarController : MonoBehaviour
         {
             Destroy(healthbars[health].gameObject);
             healthbars.Remove(health);
-            Debug.Log("Removed health bar");
+            //Debug.Log("Removed health bar");
         }
     }
 }

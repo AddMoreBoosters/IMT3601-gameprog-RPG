@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectilePool : GenericProjectilePool<Projectile>
+public class ProjectilePool : GenericPool<Projectile>
 {
 }

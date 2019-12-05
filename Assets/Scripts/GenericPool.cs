@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GenericProjectilePool<T> : MonoBehaviour where T : Component
+public abstract class GenericPool<T> : MonoBehaviour where T : Component
 {
     [SerializeField]
     private T prefab;
 
-    public static GenericProjectilePool<T> Instance { get; private set; }
+    public static GenericPool<T> Instance { get; private set; }
     private Queue<T> projectiles = new Queue<T>();
 
     private void Awake()

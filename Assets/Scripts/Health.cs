@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        Debug.Log("Enabling health!");
+        //Debug.Log("Enabling health!");
         OnHealthAdded(this);
     }
 
@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Disabling health.");
+        //Debug.Log("Disabling health.");
         OnHealthRemoved(this);
     }
 }
