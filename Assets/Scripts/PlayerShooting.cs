@@ -41,6 +41,13 @@ public class PlayerShooting : MonoBehaviour
             }
             instantiatedProjectile.transform.eulerAngles = new Vector3(0f, yAngle, 0f);
             instantiatedProjectile.gameObject.SetActive(true);
+
+            AudioSource noise = GetComponent<AudioSource>();
+
+            if (noise != null)
+            {
+                noise.Play();
+            }
         }
     }
 }
