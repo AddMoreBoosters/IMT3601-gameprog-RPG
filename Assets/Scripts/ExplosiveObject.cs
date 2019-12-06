@@ -6,10 +6,22 @@ public class ExplosiveObject : MonoBehaviour
 {
     [SerializeField]
     private GameObject explosionPrefab;
+    private bool shouldExplode = true;
 
+    private void OnApplicationQuit()
+    {
+        shouldExplode = false;
+    }
     private void OnDestroy()
     {
-        Instantiate(explosionPrefab);
-        FindObjectOfType<AudioManager>().Play("Explosion");
+        if (shouldExplode)
+        {
+            Instantiate(explosionPrefab).transform.position = transform.position;
+        }
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null)
+        {
+            audioManager.Play("Explosion");
+        }
     }
 }
