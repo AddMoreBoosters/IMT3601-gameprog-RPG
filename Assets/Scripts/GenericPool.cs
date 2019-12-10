@@ -7,13 +7,18 @@ public abstract class GenericPool<T> : MonoBehaviour where T : Component
     [SerializeField]
     private T prefab;
 
-    public static GenericPool<T> Instance { get; private set; }
+    //public virtual GenericPool<T> Instance { get; private set; }
     private Queue<T> projectiles = new Queue<T>();
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    if (Instance != null)
+    //    {
+    //        Debug.Log("A pool already existed");
+    //    }
+
+    //    Instance = this;
+    //}
 
     public T Get ()
     {

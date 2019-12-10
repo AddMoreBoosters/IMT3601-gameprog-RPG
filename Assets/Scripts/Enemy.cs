@@ -32,6 +32,10 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         player = FindObjectOfType<PlayerMovement>().transform;
+    }
+
+    private void OnEnable()
+    {
         NoiseManager.OnNoiseMade += OnHeardNoise;
     }
 
@@ -68,6 +72,10 @@ public class Enemy : MonoBehaviour
     private void OnDestroy()
     {
         OnEnemyDied(pointsValue);
+    }
+
+    private void OnDisable()
+    {
         NoiseManager.OnNoiseMade -= OnHeardNoise;
     }
 

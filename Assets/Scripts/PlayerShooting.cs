@@ -66,7 +66,18 @@ public class PlayerShooting : MonoBehaviour
                 direction.Normalize();
             }
 
-            var instantiatedProjectile = ProjectilePool.Instance.Get();
+            Projectile instantiatedProjectile;
+
+            if (weapons[weaponSelected].projectile == 1)
+            {
+                instantiatedProjectile = FindObjectOfType<RocketPool>().Get();
+                Debug.Log("Getting a rocket");
+            }
+            else
+            {
+                instantiatedProjectile = FindObjectOfType<ProjectilePool>().Get();
+                Debug.Log("Getting a bullet");
+            }
             instantiatedProjectile.transform.position = parentTransform.position + direction;
             float yAngle = Mathf.Rad2Deg * Mathf.Acos(Vector3.Dot(new Vector3(1, 0, 0), direction));
             if (direction.z >= 0f)
@@ -76,7 +87,7 @@ public class PlayerShooting : MonoBehaviour
             instantiatedProjectile.transform.eulerAngles = new Vector3(0f, yAngle, 0f);
             instantiatedProjectile.gameObject.SetActive(true);
 
-            FindObjectOfType<AudioManager>().Play("Gunshot");
+            FindObjectOfType<AudioManager>().Play(weapons[weaponSelected].soundName);
             NoiseManager.instance.MakeNoise(transform.position, weapons[weaponSelected].noiseTravelDistance);
         }
     }

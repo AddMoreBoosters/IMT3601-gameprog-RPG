@@ -14,7 +14,8 @@ public class ExplosiveObject : MonoBehaviour
     {
         shouldExplode = false;
     }
-    private void OnDisable()
+
+    public void Explode()
     {
         if (shouldExplode)
         {
@@ -25,6 +26,14 @@ public class ExplosiveObject : MonoBehaviour
         if (audioManager != null)
         {
             audioManager.Play("Explosion");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (gameObject.name == "Barrel")
+        {
+            Explode();
         }
     }
 }

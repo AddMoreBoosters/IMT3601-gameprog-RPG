@@ -55,6 +55,6 @@ public class PlayerMovement : MonoBehaviour
                 currentLightLevel += source.LightOnObject(transform);
             }
         }
-        Debug.Log(currentLightLevel);
+        //Debug.Log(currentLightLevel);
     }
 }
