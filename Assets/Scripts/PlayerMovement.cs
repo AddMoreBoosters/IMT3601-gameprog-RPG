@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 10f;
     public float jumpHeight = 1f;
+    public float currentLightLevel;
+    [SerializeField]
+    private float lightCheckInterval = 0.2f;
+    private float timeSinceLightCheck = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,5 +32,29 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.transform.position += new Vector3(0f, 0f, vertical * Time.deltaTime * speed);
         }
+
+        timeSinceLightCheck += Time.deltaTime;
+        if (timeSinceLightCheck >= lightCheckInterval)
+        {
+            timeSinceLightCheck = 0f;
+            CheckLightLevel();
+        }
+    }
+
+    private void CheckLightLevel()
+    {
+        Light[] lights;
+        lights = FindObjectsOfType(typeof(Light)) as Light[];
+        currentLightLevel = 0f;
+
+        foreach(Light light in lights)
+        {
+            LightSource source = light.GetComponent<LightSource>();
+            if (source != null)
+            {
+                currentLightLevel += source.LightOnObject(transform);
+            }
+        }
+        Debug.Log(currentLightLevel);
     }
 }

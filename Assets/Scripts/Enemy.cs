@@ -14,12 +14,13 @@ public class Enemy : MonoBehaviour
 
     private Transform player;
     [SerializeField]
-    private float fovRadius;
+    private float fovRadius = 10f;
     [SerializeField]
-    private float fovAngle;
+    private float fovAngle = 140f;
     [SerializeField]
     private float FOVcheckInterval = 0.5f;
     private float timeSinceFOVcheck = 0f;
+    private bool canSeePlayer = false;
 
     public static event System.Action<int> OnEnemyDied = delegate { };
 
@@ -41,9 +42,12 @@ public class Enemy : MonoBehaviour
         if (timeSinceFOVcheck >= FOVcheckInterval)
         {
             timeSinceFOVcheck = 0f;
-            if (InFOV(player))
+            canSeePlayer = InFOV(player);
+            if (canSeePlayer)
             {
                 agent.destination = player.position;
+                NoiseManager.instance.MakeNoise(transform.position, 10f);
+                //  Play an appropriate sound file, don't have one yet
             }
         }
     }
@@ -90,8 +94,9 @@ public class Enemy : MonoBehaviour
     {
         Vector3 direction = target.position - (transform.position + Vector3.up);
         float angle;
+        float detectionRange = (fovRadius * FindObjectOfType<PlayerMovement>().currentLightLevel);
 
-        if (direction.magnitude <= fovRadius)
+        if (direction.magnitude <= detectionRange)
         {
             //Debug.Log("Player is in range");
             angle = Vector3.Angle(transform.forward, direction);
@@ -100,7 +105,7 @@ public class Enemy : MonoBehaviour
             {
                 //Debug.Log("Player is within FOV angle");
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position + Vector3.up, direction.normalized, out hit, fovRadius))
+                if (Physics.Raycast(transform.position + Vector3.up, direction.normalized, out hit, detectionRange))
                 {
                     if (hit.transform.tag == "Player")
                     {
@@ -114,12 +119,16 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
+    //  Investigate noises, if you're not already pursuing player
     public void OnHeardNoise (Vector3 noisePosition, float noiseTravelDistance)
     {
-        Vector3 direction = noisePosition - transform.position;
-        if (direction.magnitude <= noiseTravelDistance)
+        if (!canSeePlayer)
         {
-            agent.destination = noisePosition;
+            Vector3 direction = noisePosition - transform.position;
+            if (direction.magnitude <= noiseTravelDistance)
+            {
+                agent.destination = noisePosition;
+            }
         }
     }
 }

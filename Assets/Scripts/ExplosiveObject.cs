@@ -14,7 +14,7 @@ public class ExplosiveObject : MonoBehaviour
     {
         shouldExplode = false;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (shouldExplode)
         {
