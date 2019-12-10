@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         player = FindObjectOfType<PlayerMovement>().transform;
+        NoiseManager.OnNoiseMade += OnHeardNoise;
     }
 
     // Update is called once per frame
@@ -54,11 +55,16 @@ public class Enemy : MonoBehaviour
         {
             destructibleTarget.ModifyHealth(-damage);
         }
+        else if(collision.gameObject.GetComponent<Projectile>() != null)
+        {
+            agent.destination = player.position;
+        }
     }
 
     private void OnDestroy()
     {
         OnEnemyDied(pointsValue);
+        NoiseManager.OnNoiseMade -= OnHeardNoise;
     }
 
     private void OnDrawGizmos()
@@ -87,18 +93,18 @@ public class Enemy : MonoBehaviour
 
         if (direction.magnitude <= fovRadius)
         {
-            Debug.Log("Player is in range");
+            //Debug.Log("Player is in range");
             angle = Vector3.Angle(transform.forward, direction);
 
             if (angle <= (fovAngle / 2f))
             {
-                Debug.Log("Player is within FOV angle");
+                //Debug.Log("Player is within FOV angle");
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position + Vector3.up, direction.normalized, out hit, fovRadius))
                 {
                     if (hit.transform.tag == "Player")
                     {
-                        Debug.Log("Found Player!");
+                        //Debug.Log("Found Player!");
                         return true;
                     }
                 }
@@ -106,5 +112,14 @@ public class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void OnHeardNoise (Vector3 noisePosition, float noiseTravelDistance)
+    {
+        Vector3 direction = noisePosition - transform.position;
+        if (direction.magnitude <= noiseTravelDistance)
+        {
+            agent.destination = noisePosition;
+        }
     }
 }

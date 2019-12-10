@@ -6,6 +6,8 @@ public class ExplosiveObject : MonoBehaviour
 {
     [SerializeField]
     private GameObject explosionPrefab;
+    [SerializeField]
+    private float noiseTravelDistance = 20f;
     private bool shouldExplode = true;
 
     private void OnApplicationQuit()
@@ -17,6 +19,7 @@ public class ExplosiveObject : MonoBehaviour
         if (shouldExplode)
         {
             Instantiate(explosionPrefab).transform.position = transform.position;
+            NoiseManager.instance.MakeNoise(transform.position, noiseTravelDistance);
         }
         AudioManager audioManager = FindObjectOfType<AudioManager>();
         if (audioManager != null)

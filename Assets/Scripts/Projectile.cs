@@ -31,9 +31,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Health destructibleTarget = collision.gameObject.GetComponent<Health>();
+        Health destructibleTarget = other.gameObject.GetComponent<Health>();
         if (destructibleTarget != null)
         {
             destructibleTarget.ModifyHealth(-damage);
