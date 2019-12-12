@@ -168,7 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
+  - {fileID: 3140773665039335299, guid: bd3b8a5b804dd9d4ab48f582cfe9b236, type: 3}
   - {fileID: 4343434897127610119, guid: eeb015bc471d9cb4aa1e12948e337858, type: 3}
+  - {fileID: 1232387226385769699, guid: 078c1ba7526e3b942ba6e51bd1d5a136, type: 3}
 --- !u!114 &4905310656228920192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,8 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ca85840170dd64b919763296bce454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpHeight: 1
+  speed: 5
   currentLightLevel: 0
   lightCheckInterval: 0.2
 --- !u!54 &1112338189959163
