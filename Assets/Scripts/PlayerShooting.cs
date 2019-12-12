@@ -79,7 +79,7 @@ public class PlayerShooting : MonoBehaviour
                 Debug.Log("Getting a bullet");
             }
             instantiatedProjectile.transform.position = parentTransform.position + direction;
-            float yAngle = Mathf.Rad2Deg * Mathf.Acos(Vector3.Dot(new Vector3(1, 0, 0), direction));
+            float yAngle = Vector3.Angle(new Vector3(1, 0, 0), direction);
             if (direction.z >= 0f)
             {
                 yAngle *= -1;

@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public GameObject player;
+    private Transform player;
 
     private Vector3 offset;
 
     // Start is called before the first frame update
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        player = FindObjectOfType<PlayerMovement>().transform;
+        offset = transform.position - player.position;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
         //  Camera follows the player
-        transform.position = player.transform.position + offset;
+        transform.position = player.position + offset;
     }
 }
