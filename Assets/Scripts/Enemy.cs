@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     public static event System.Action<int> OnEnemyDied = delegate { };
 
     private NavMeshAgent agent;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         player = FindObjectOfType<PlayerMovement>().transform;
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -54,6 +56,7 @@ public class Enemy : MonoBehaviour
                 //  Play an appropriate sound file, don't have one yet
             }
         }
+        animator.SetBool("HasPath", agent.hasPath);
     }
 
     private void OnCollisionEnter(Collision collision)
