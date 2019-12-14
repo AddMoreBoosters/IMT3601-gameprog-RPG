@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField]
     private Image foregroundImage;
+    [SerializeField]
+    private TextMeshProUGUI statusText = null;
     [SerializeField]
     private float updateTime = 0.2f;
     [SerializeField]
@@ -19,11 +22,20 @@ public class HealthBar : MonoBehaviour
     {
         this.health = health;
         health.OnHealthChanged += HandleHealthChanged;
+        health.OnStatusChanged += HandleStatusChanged;
     }
 
     private void HandleHealthChanged(float percentage)
     {
         StartCoroutine(ChangeToPercentage(percentage));
+    }
+
+    private void HandleStatusChanged(string status)
+    {
+        if (statusText != null)
+        {
+            statusText.text = status;
+        }
     }
 
     private IEnumerator ChangeToPercentage(float percentage)

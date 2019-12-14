@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
     public HealthBar healthbarPrefab;
 
     public event System.Action<float> OnHealthChanged = delegate { };
+    public event System.Action<string> OnStatusChanged = delegate { };
 
     private void Start()
     {
@@ -33,6 +34,11 @@ public class Health : MonoBehaviour
 
         float currentHealthPercentage = (float)currentHealth / (float)maxHealth;
         OnHealthChanged(currentHealthPercentage);
+    }
+
+    public void ChangeStatus(string status)
+    {
+        OnStatusChanged(status);
     }
 
     private void OnDestroy()

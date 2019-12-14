@@ -53,10 +53,15 @@ public class Enemy : MonoBehaviour
             {
                 agent.destination = player.position;
                 NoiseManager.instance.MakeNoise(transform.position, 10f);
+                GetComponent<Health>().ChangeStatus("!");
                 //  Play an appropriate sound file, don't have one yet
             }
         }
         animator.SetBool("HasPath", agent.hasPath);
+        if (!agent.hasPath)
+        {
+            GetComponent<Health>().ChangeStatus("-");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -139,6 +144,7 @@ public class Enemy : MonoBehaviour
             if (direction.magnitude <= noiseTravelDistance)
             {
                 agent.destination = noisePosition;
+                GetComponent<Health>().ChangeStatus("?");
             }
         }
     }
