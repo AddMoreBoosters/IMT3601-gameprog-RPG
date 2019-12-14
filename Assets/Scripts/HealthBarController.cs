@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HealthBarController : MonoBehaviour
 {
-    [SerializeField]
-    private HealthBar healthBarPrefab;
+    //[SerializeField]
+    //private HealthBar healthBarPrefab;
 
     private Dictionary<Health, HealthBar> healthbars = new Dictionary<Health, HealthBar>();
 
@@ -27,7 +27,7 @@ public class HealthBarController : MonoBehaviour
     {
         if(healthbars.ContainsKey(health) == false)
         {
-            var healthBar = Instantiate(healthBarPrefab, transform);
+            var healthBar = Instantiate(health.healthbarPrefab, transform);
             healthbars.Add(health, healthBar);
             healthBar.SetHealth(health);
             //Debug.Log("Added health bar");

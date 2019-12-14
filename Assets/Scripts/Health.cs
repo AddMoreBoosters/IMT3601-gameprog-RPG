@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
     private int maxHealth = 1;
     private int currentHealth;
 
+    public HealthBar healthbarPrefab;
+
     public event System.Action<float> OnHealthChanged = delegate { };
 
     private void Start()

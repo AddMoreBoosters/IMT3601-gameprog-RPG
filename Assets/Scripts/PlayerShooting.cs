@@ -15,6 +15,9 @@ public class PlayerShooting : MonoBehaviour
     private Weapon[] weapons;
     private int weaponSelected = 0;
 
+    public float projectileSpawnDistance = 1.5f;
+    public float projectileSpawnHeight = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +81,7 @@ public class PlayerShooting : MonoBehaviour
                 instantiatedProjectile = FindObjectOfType<ProjectilePool>().Get();
                 Debug.Log("Getting a bullet");
             }
-            instantiatedProjectile.transform.position = parentTransform.position + direction;
+            instantiatedProjectile.transform.position = parentTransform.position + direction * projectileSpawnDistance + Vector3.up * projectileSpawnHeight;
             float yAngle = Vector3.Angle(new Vector3(1, 0, 0), direction);
             if (direction.z >= 0f)
             {
