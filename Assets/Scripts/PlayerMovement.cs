@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 10f;
     public float currentLightLevel;
+    public float footstepNoiseLevel = 4f;
     [SerializeField]
     private float lightCheckInterval = 0.2f;
     private float timeSinceLightCheck = 0f;
@@ -28,18 +29,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-
-        //if (horizontal != 0f)
-        //{
-        //    gameObject.transform.position += new Vector3(horizontal * Time.deltaTime * speed, 0f, 0f);
-        //}
-
-        //if (vertical != 0f)
-        //{
-        //    gameObject.transform.position += new Vector3(0f, 0f, vertical * Time.deltaTime * speed);
-        //}
 
         //  Turn towards mouse position
         Vector3 mousePosition = new Vector3(0f, 0f, 0f);
@@ -58,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         //  Move
         Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * speed, 0f, Input.GetAxis("Vertical") * Time.deltaTime * speed);
         gameObject.transform.position += moveVector;
+        FindObjectOfType<NoiseManager>().MakeNoise(transform.position, footstepNoiseLevel);
 
         //  Set animator parameters
         float moveAngle = Vector3.Angle(moveVector, transform.forward);
