@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
-    private float projectileType = 0f;
+    private int projectileType = 0;
     
     [SerializeField]
     private float maxLifetime = 5f;
@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
         if (elapsedLifetime > maxLifetime)
         {
             //  Deactivate projectile and return it to the pool
-            if (projectileType == 1f)
+            if (projectileType == (int)Weapon.ProjectileTypes.Rocket)
             {
                 ExplosiveObject boom = GetComponent<ExplosiveObject>();
                 boom.Explode();
@@ -51,14 +51,17 @@ public class Projectile : MonoBehaviour
         }
 
         //  Deactivate projectile and return it to the pool
-        if (projectileType == 1f)
+        if (projectileType == (int)Weapon.ProjectileTypes.Rocket)
         {
             ExplosiveObject boom = GetComponent<ExplosiveObject>();
+            Debug.Log("Calling explode");
             boom.Explode();
+            Debug.Log("Calling returnToPool");
             FindObjectOfType<RocketPool>().ReturnToPool(this);
         }
         else
         {
+            Debug.Log("Returning to bullet pool");
             FindObjectOfType<ProjectilePool>().ReturnToPool(this);
         }
     }

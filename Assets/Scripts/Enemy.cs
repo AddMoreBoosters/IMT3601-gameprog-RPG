@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         timeSinceFOVcheck += Time.deltaTime;
-        if (timeSinceFOVcheck >= FOVcheckInterval)
+        if (timeSinceFOVcheck >= FOVcheckInterval && player != null)
         {
             timeSinceFOVcheck = 0f;
             canSeePlayer = InFOV(player);
@@ -71,9 +71,10 @@ public class Enemy : MonoBehaviour
         {
             destructibleTarget.ModifyHealth(-damage);
         }
-        else if(collision.gameObject.GetComponent<Projectile>() != null)
+        else if(collision.gameObject.GetComponent<Projectile>() != null && player != null)
         {
             agent.destination = player.position;
+            GetComponent<Health>().ChangeStatus("!");
         }
     }
 

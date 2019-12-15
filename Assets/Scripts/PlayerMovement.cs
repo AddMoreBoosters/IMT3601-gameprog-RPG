@@ -12,10 +12,17 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
+    public static event System.Action OnPlayerDied = delegate { };
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void OnDestroy()
+    {
+        OnPlayerDied();
     }
 
     // Update is called once per frame

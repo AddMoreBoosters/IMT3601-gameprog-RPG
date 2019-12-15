@@ -51,7 +51,7 @@ public class PlayerShooting : MonoBehaviour
                 weaponSelected = 3;
         }
 
-        if (Input.GetMouseButton(0) && weapons[weaponSelected].cooldown >= (60f / weapons[weaponSelected].fireRateRPM) && !MyPauseMenu.gameIsPaused)
+        if (Input.GetMouseButton(0) && weapons[weaponSelected].cooldown >= (60f / weapons[weaponSelected].fireRateRPM) && Time.timeScale != 0f)
         {
             weapons[weaponSelected].cooldown = 0f;
 
@@ -71,15 +71,15 @@ public class PlayerShooting : MonoBehaviour
 
             Projectile instantiatedProjectile;
 
-            if (weapons[weaponSelected].projectile == 1)
+            if (weapons[weaponSelected].projectile == (int)Weapon.ProjectileTypes.Rocket)
             {
                 instantiatedProjectile = FindObjectOfType<RocketPool>().Get();
-                Debug.Log("Getting a rocket");
+                //Debug.Log("Getting a rocket");
             }
             else
             {
                 instantiatedProjectile = FindObjectOfType<ProjectilePool>().Get();
-                Debug.Log("Getting a bullet");
+                //Debug.Log("Getting a bullet");
             }
             instantiatedProjectile.transform.position = parentTransform.position + direction * projectileSpawnDistance + Vector3.up * projectileSpawnHeight;
             float yAngle = Vector3.Angle(new Vector3(1, 0, 0), direction);

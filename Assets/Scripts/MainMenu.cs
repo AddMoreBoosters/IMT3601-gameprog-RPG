@@ -10,6 +10,15 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void PlayButtonNoise()
+    {
+        AudioManager audio = FindObjectOfType<AudioManager>();
+        if (audio != null)
+        {
+            audio.Play("ButtonClicked");
+        }
+    }
+
     public void QuitGame ()
     {
         Debug.Log("Quit");

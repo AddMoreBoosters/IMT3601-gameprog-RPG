@@ -31,7 +31,7 @@ public class ExplosiveObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (gameObject.name == "Explosive Barrel")
+        if (gameObject.name == "Explosive Barrel" && shouldExplode)
         {
             Explode();
         }

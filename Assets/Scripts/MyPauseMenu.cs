@@ -44,9 +44,19 @@ public class MyPauseMenu : MonoBehaviour
         gameIsPaused = true;
     }
 
+    public void PlayButtonNoise()
+    {
+        AudioManager audio = FindObjectOfType<AudioManager>();
+        if (audio != null)
+        {
+            audio.Play("ButtonClicked");
+        }
+    }
+
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
+        ScoreManager.gameFinished = true;
         SceneManager.LoadScene(0);
     }
 
