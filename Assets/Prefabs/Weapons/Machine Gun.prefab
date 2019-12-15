@@ -49,4 +49,4 @@ MonoBehaviour:
   fireRateRPM: 600
   cooldown: 0
   noiseTravelDistance: 15
-  spreadDegrees: 0
+  spreadDegrees: 15

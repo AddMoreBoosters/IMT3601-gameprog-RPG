@@ -47,6 +47,6 @@ MonoBehaviour:
   soundName: Gunshot
   projectile: 0
   fireRateRPM: 90
-  cooldown: 0
+  cooldown: 0.6666667
   noiseTravelDistance: 10
-  spreadDegrees: 0
+  spreadDegrees: 5

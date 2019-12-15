@@ -5,12 +5,6 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     private Transform parentTransform;
-
-    //[SerializeField]
-    //private float fireRateRPM = 60f;
-    //[SerializeField]
-    //private float noiseTravelDistance = 10f;
-    //private float cooldown;
     [SerializeField]
     private Weapon[] weapons;
     private int weaponSelected = 0;
@@ -87,7 +81,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 yAngle *= -1;
             }
-            instantiatedProjectile.transform.eulerAngles = new Vector3(0f, yAngle, 0f);
+            instantiatedProjectile.transform.eulerAngles = new Vector3(0f, yAngle + Random.Range(-weapons[weaponSelected].spreadDegrees / 2f, weapons[weaponSelected].spreadDegrees / 2f), 0f);
             instantiatedProjectile.gameObject.SetActive(true);
 
             FindObjectOfType<AudioManager>().Play(weapons[weaponSelected].soundName);

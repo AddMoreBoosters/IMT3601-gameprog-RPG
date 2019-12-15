@@ -6,39 +6,27 @@ public abstract class GenericPool<T> : MonoBehaviour where T : Component
 {
     [SerializeField]
     private T prefab;
-
-    //public virtual GenericPool<T> Instance { get; private set; }
-    private Queue<T> projectiles = new Queue<T>();
-
-    //private void Awake()
-    //{
-    //    if (Instance != null)
-    //    {
-    //        Debug.Log("A pool already existed");
-    //    }
-
-    //    Instance = this;
-    //}
+    private Queue<T> objects = new Queue<T>();
 
     public T Get ()
     {
-        if (projectiles.Count == 0)
+        if (objects.Count == 0)
         {
-            AddProjectiles(1);
+            AddObjects(1);
         }
-        return projectiles.Dequeue();
+        return objects.Dequeue();
     }
 
     public void ReturnToPool (T objectToReturn)
     {
         objectToReturn.gameObject.SetActive(false);
-        projectiles.Enqueue(objectToReturn);
+        objects.Enqueue(objectToReturn);
     }
 
-    private void AddProjectiles (int count)
+    private void AddObjects (int count)
     {
         var newProjectile = GameObject.Instantiate(prefab);
         newProjectile.gameObject.SetActive(false);
-        projectiles.Enqueue(newProjectile);
+        objects.Enqueue(newProjectile);
     }
 }

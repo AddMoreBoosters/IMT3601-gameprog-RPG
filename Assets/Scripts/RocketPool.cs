@@ -4,5 +4,4 @@ using UnityEngine;
 
 public class RocketPool : GenericPool<Projectile>
 {
-    //public override GenericPool<Projectile> Instance => base.Instance;
 }
